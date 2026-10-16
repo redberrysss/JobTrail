@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f4f6f8"><title>JobTrail · Application desk</title>
+<style>
+:root{--bg:#f4f6f8;--paper:#fff;--ink:#18222d;--muted:#6a7785;--line:#dce2e8;--blue:#2563eb;--blue-soft:#eaf0ff;--green:#18794e;--amber:#9a5b00;--red:#b42318;--sans:Inter,'Avenir Next',system-ui,sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans)}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1200px;margin:auto;padding:28px 26px 60px}.top{display:flex;align-items:center;justify-content:space-between;padding-bottom:22px;border-bottom:1px solid var(--line)}.brand{display:flex;gap:12px;align-items:center;font-weight:800;letter-spacing:-.04em;font-size:18px}.logo{display:grid;place-items:center;width:34px;height:34px;background:var(--blue);color:#fff;font-weight:850}.pill{font-size:11px;padding:5px 9px;border:1px solid var(--line);border-radius:99px;color:var(--muted)}.intro{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:32px 0 23px}.intro h1{font-size:32px;letter-spacing:-.05em;margin:0 0 5px}.intro p{margin:0;color:var(--muted)}.demo{color:#6b7280;font-size:11px;background:#eceff3;padding:7px 10px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{background:var(--paper);border:1px solid var(--line);padding:17px}.stat span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.stat strong{display:block;margin-top:5px;font-size:27px;letter-spacing:-.04em}.layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:18px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);padding:19px}.panel h2{font-size:14px;margin:0 0 16px}.form-grid{display:grid;gap:11px}.field{display:grid;gap:5px}.field label{font-size:11px;color:var(--muted);font-weight:650}.field input,.field select,.filters input,.filters select{width:100%;height:39px;padding:0 10px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:4px}.field input:focus,.field select:focus,.filters input:focus,.filters select:focus{outline:2px solid #9ab7ff;outline-offset:1px}.primary{min-height:40px;padding:0 14px;color:#fff;background:var(--blue);border:0;border-radius:4px;font-weight:700}.primary:hover{background:#174bc1}.hint{font-size:11px;color:var(--muted);margin:0}.queue-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.queue-head h2{margin:0;font-size:15px}.filters{display:flex;gap:8px}.filters input{width:min(230px,36vw)}.filters select{width:145px}.list{display:grid;gap:9px}.job{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:15px;border:1px solid var(--line);border-radius:4px}.company{font-size:16px;font-weight:740;letter-spacing:-.02em}.role{color:#485768}.job-meta{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin-top:9px;font-size:11px;color:var(--muted)}.badge{padding:4px 8px;border-radius:99px;font-size:10px;font-weight:700;background:var(--blue-soft);color:var(--blue)}.badge.offer{background:#e7f5ec;color:var(--green)}.badge.rejected{background:#ffeded;color:var(--red)}.badge.interview{background:#fff3dc;color:var(--amber)}.controls{display:flex;gap:6px;align-items:center}.small{border:1px solid var(--line);background:#fff;border-radius:4px;padding:7px 9px;color:var(--ink);font-size:11px}.small:hover{border-color:var(--blue);color:var(--blue)}.delete{color:var(--red)}.empty{text-align:center;border:1px dashed var(--line);padding:32px;color:var(--muted)}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:800px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.intro{align-items:flex-start;flex-direction:column}}@media(max-width:560px){.app{padding:17px 14px}.top{align-items:flex-start}.intro h1{font-size:28px}.queue-head{align-items:flex-start;flex-direction:column}.filters{width:100%}.filters input{width:100%}.filters select{width:130px}.job{grid-template-columns:1fr}.controls{justify-content:flex-start}.stat strong{font-size:23px}}
+</style></head><body><main class="app"><header class="top"><div class="brand"><span class="logo" aria-hidden="true">JT</span><span>JobTrail</span></div><span class="pill">CAREER WORKSPACE</span></header><section class="intro"><div><h1>Your search, in motion.</h1><p>Keep every application and next step in one clear place.</p></div><span class="demo">LOCAL SQLITE · SERVER-SAVED</span><span id="apiNotice" class="demo" role="status" aria-live="polite"></span></section><section class="stats" aria-label="Application summary"><article class="stat"><span>Tracked roles</span><strong id="total">0</strong></article><article class="stat"><span>In progress</span><strong id="active">0</strong></article><article class="stat"><span>Interviews</span><strong id="interviews">0</strong></article><article class="stat"><span>Offers</span><strong id="offers">0</strong></article></section><div class="layout"><aside class="panel"><h2>Add an application</h2><form id="jobForm" class="form-grid"><div class="field"><label for="company">Company</label><input id="company" name="company" required maxlength="70" placeholder="e.g. Northstar Labs"></div><div class="field"><label for="role">Role</label><input id="role" name="role" required maxlength="90" placeholder="e.g. Frontend Engineer"></div><div class="field"><label for="stage">Current stage</label><select id="stage" name="stage"><option>Applied</option><option>Screening</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></div><div class="field"><label for="nextStep">Next step</label><input id="nextStep" name="nextStep" maxlength="120" placeholder="e.g. Send a follow-up"></div><button class="primary" type="submit">Add to JobTrail</button><p class="hint">No account required. Your entries stay on this device.</p></form></aside><section class="panel" aria-labelledby="queueTitle"><div class="queue-head"><h2 id="queueTitle">Application queue</h2><div class="filters"><label class="sr" for="search">Search applications</label><input id="search" type="search" placeholder="Search company or role"><label class="sr" for="stageFilter">Filter by stage</label><select id="stageFilter"><option value="All">All stages</option><option>Applied</option><option>Screening</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></div></div><div id="jobs" class="list" aria-live="polite"></div></section></div></main><script>
+(() => {
+  const stages = ['Applied', 'Screening', 'Interview', 'Offer', 'Rejected'];
+  let jobs = [];
+
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function render() {
+    const q = $('#search').value.trim().toLowerCase();
+    const f = $('#stageFilter').value;
+    const shown = jobs
+      .filter(j => (f === 'All' || j.stage === f) && (`${j.company} ${j.role} ${j.nextStep}`.toLowerCase().includes(q)))
+      .sort((a, b) => b.date.localeCompare(a.date));
+    $('#total').textContent = jobs.length;
+    $('#active').textContent = jobs.filter(j => !['Offer', 'Rejected'].includes(j.stage)).length;
+    $('#interviews').textContent = jobs.filter(j => j.stage === 'Interview').length;
+    $('#offers').textContent = jobs.filter(j => j.stage === 'Offer').length;
+    $('#jobs').innerHTML = shown.length
+      ? shown.map(j => `<article class="job"><div><div class="company">${esc(j.company)}</div><div class="role">${esc(j.role)}</div><div class="job-meta"><span class="badge ${j.stage.toLowerCase()}">${esc(j.stage)}</span><span>Added ${esc(j.date)}</span><span>Next: ${esc(j.nextStep || 'No next step set')}</span></div></div><div class="controls"><button class="small" data-action="advance" data-id="${esc(j.id)}" aria-label="Advance ${esc(j.company)} to next stage">Next stage</button><button class="small delete" data-action="delete" data-id="${esc(j.id)}" aria-label="Remove ${esc(j.company)}">Remove</button></div></article>`).join('')
+      : '<div class="empty">No applications match. Add a role or clear the filters.</div>';
+  }
+
+  $('#jobForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const company = fd.get('company').trim();
+    const role = fd.get('role').trim();
+    if (!company || !role) return;
+    try {
+      const r = await fetch('/api/jobs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ company, role, stage: fd.get('stage'), nextStep: fd.get('nextStep') })
+      });
+      const out = await r.json();
+      if (!r.ok) throw new Error(out.error || 'Could not save');
+      jobs.unshift(out);
+      e.currentTarget.reset();
+      render();
+      $('#company').focus();
+      $('#apiNotice').textContent = 'Saved to the local database.';
+    } catch (err) {
+      $('#apiNotice').textContent = err.message;
+    }
+  });
+
+  $('#search').addEventListener('input', render);
+  $('#stageFilter').addEventListener('change', render);
+
+  async function load() {
+    const r = await fetch('/api/jobs');
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Database unavailable');
+    jobs = d.jobs;
+    render();
+  }
+
+  $('#jobs').addEventListener('click', async e => {
+    const b = e.target.closest('button[data-action]');
+    if (!b) return;
+    const j = jobs.find(x => x.id === b.dataset.id);
+    if (!j) return;
+    try {
+      const r = b.dataset.action === 'delete'
+        ? await fetch('/api/jobs/' + encodeURIComponent(j.id), { method: 'DELETE' })
+        : await fetch('/api/jobs/' + encodeURIComponent(j.id), {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ stage: stages[(stages.indexOf(j.stage) + 1) % stages.length] })
+          });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Could not update');
+      await load();
+      $('#apiNotice').textContent = 'Changes saved to SQLite.';
+    } catch (err) {
+      $('#apiNotice').textContent = err.message;
+    }
+  });
+
+  load().catch(err => {
+    $('#apiNotice').textContent = err.message + ' · Start the app with python3 server.py';
+    $('#jobs').innerHTML = '<div class="empty">Local database unavailable. Start the app server.</div>';
+  });
+})();
+</script></body></html>
